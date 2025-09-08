@@ -2,7 +2,7 @@ name: Build and Push Docker Image to ECR
 
 on:
   push:
-    branches: [ master ]  # ✅ Changed from 'main' to 'master'
+    branches: [ master ]
 
 jobs:
   build-and-push:
@@ -17,7 +17,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: us-east-1
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -26,5 +26,5 @@ jobs:
       - name: Build, tag, and push image to ECR
         run: |
           docker build -t my-app .
-          docker tag my-app:latest <your_aws_account_id>.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
-          docker push <331086148814>.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
+          docker tag my-app:latest 331086148814.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          docker push 331086148814.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
