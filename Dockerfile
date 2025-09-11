@@ -1,15 +1,17 @@
-FROM python:3.11-slim
+# Use Python 3.10 slim (to avoid numpy version issues)
+FROM python:3.10-slim
 
+# Set working directory
 WORKDIR /app
 
-# Copy requirements first (so Docker caches it)
+# Copy requirements first for caching
 COPY requirements.txt .
 
-# Upgrade pip + install dependencies
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+# Upgrade pip and install dependencies
+RUN python -m pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your app code
+# Copy the rest of the app files
 COPY . .
 
 # Expose Streamlit port
